@@ -2,7 +2,7 @@ module data_structures
 
 import time
 
-interface VlangBenchmarkRecord {
+pub interface IVlangBenchmarkRecord {
 	set_benchmark_name(value string)
 	set_date(value time.Time)
 	set_commit_hash(value string)
@@ -14,4 +14,14 @@ interface VlangBenchmarkRecord {
 	get_commit_message() string
 	get_numerical_result() int
 	get_measure_unit() string
+}
+
+struct VlangBenchmarkData {
+	benchmark_name string
+	date           time.Time
+	commit_hash    string
+	commit_message string
+mut:
+	numerical_result int
+	measure_unit     string
 }
