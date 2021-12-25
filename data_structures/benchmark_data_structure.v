@@ -3,10 +3,6 @@ module data_structures
 import time
 
 pub interface IVlangBenchmarkRecord {
-	set_benchmark_name(value string)
-	set_date(value time.Time)
-	set_commit_hash(value string)
-	set_commit_message(value string)
 	set_result(value string)
 	get_benchmark_name() string
 	get_date() time.Time
