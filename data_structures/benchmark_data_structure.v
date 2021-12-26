@@ -3,6 +3,7 @@ module data_structures
 import time
 
 pub struct VlangBenchmarkData {
+pub:
 	benchmark_name   string
 	date             time.Time
 	commit_hash      string
