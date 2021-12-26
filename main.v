@@ -4,5 +4,6 @@ import data_processor as processor
 fn main() {
 	benchmarks := data.get_benchmarks_data('https://fast.vlang.io/')
 	grouped_benchmarks_by_test := processor.get_grouped_benchmarks_data(benchmarks)
-	println(grouped_benchmarks_by_test.len)
+	average_result_by_test := processor.calculate_average_result(grouped_benchmarks_by_test)
+	println(average_result_by_test)
 }
