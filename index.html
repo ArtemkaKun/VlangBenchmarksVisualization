@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Vlang Benchmarks Visualization</title>
+    <base href="/" />
+    @css 'css/bootstrap.min.css'
+    @css 'css/app.css'
+</head>
+
+<body>
+    <header>
+        <img src="/v-logo.png" alt="Vlang main logo" />
+        <h1>Vlang Benchmarks Visualizations</h1>
+        <h3>
+            Interactive plots, based on the data from the
+            <a href="https://fast.vlang.io/" target="_blank">
+                <em>Is V still fast?</em>
+            </a> page
+        </h3>
+    </header>
+
+    <main>
+        <div>
+            <table>
+                <tr>
+                    <th>Test</th>
+                    <th>Average</th>
+                    <th>Median</th>
+                </tr>
+
+                @for benchmark_name, benchmark_results in grouped_benchmarks_by_test
+                <tr>
+                    <td>@benchmark_name</td>
+                    <td>@{formated_average_result[benchmark_name]} @{benchmark_results[0].measure_unit}</td>
+                    <td>@{median_result_by_test[benchmark_name]} @{benchmark_results[0].measure_unit}</td>
+                </tr>
+                @end
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <img src="/v-logo.png" alt="Vlang main logo" />
+            <p>logo by <a href="https://github.com/sonovice/" target="_blank">Sonovice</a> and <a href="https://github.com/donnisnoni/" target="_blank">Don</a>.</p>
+            <br />
+            <p><a href="https://github.com/ArtemkaKun/VlangBenchmarksVisualization" target="_blank">Repo of this app</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+html,
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+header h1 {
+    text-align: center;
+}
+
+header h3 {
+    text-align: center;
+}
+
+header img {
+    width: 30%;
+    max-width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main {
+    margin: 2.5% 1%;
+}
+
+main h4 {
+    text-align: center;
+}
+
+main .plotContainer {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+main .plotRangePickerContainer {
+    text-align: center;
+    margin-top: 2%;
+}
+
+main table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+main th,
+td {
+    padding: 15px;
+}
+
+main table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    height: 5%;
+    width: auto;
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+footer div {
+    width: fit-content;
+    display: inline-block;
+}
+
+footer a {
+    font-style: italic;
+}
+
+footer img {
+    width: 2%;
+    display: inline;
+    object-fit: contain;
+}
+
+footer p {
+    display: inline;
+}
