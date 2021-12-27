@@ -49,3 +49,13 @@ pub fn calculate_median_result(grouped_benchmarks_data map[string][]structures.V
 
 	return benchmark_name_to_average_result_map
 }
+
+pub fn format_average_result(grouped_benchmarks_data map[string]f32) map[string]string {
+	mut formated_average_result_map := map[string]string{}
+
+	for benchmark_name, average_result in grouped_benchmarks_data {
+		formated_average_result_map[benchmark_name] = '${average_result:.2f}'
+	}
+
+	return formated_average_result_map
+}
