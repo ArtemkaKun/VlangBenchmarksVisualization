@@ -82,5 +82,5 @@ fn get_value_and_measure_unit(string_to_parse string) (int, string) {
 		}
 	}
 
-	return value_in_string_form.int(), measure_unit
+	return value_in_string_form.int(), measure_unit.trim_space()
 }
