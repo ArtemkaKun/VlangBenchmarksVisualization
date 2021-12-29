@@ -1,9 +1,0 @@
-api = "0.1"
-
-[buildpack]
-id = "heroku/v"
-version = "0.0.1"
-name = "Vlang"
-homepage = "https://github.com/louis77/heroku-buildpack-v"
-
-[publish]
