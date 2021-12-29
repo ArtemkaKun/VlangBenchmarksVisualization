@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# usage: bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -eo pipefail
+
+function arrow() {
+  sed -u 's/^/----->  /'
+}
+
+function indent() {
+  sed -u 's/^/       /'
+}
+
+function cat_or() {
+  echo $(cat $1 2>/dev/null || echo $2)
+}
+
+BASE_DIR=$PWD
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+V_DIR=$CACHE_DIR/v
+
+v_repo=$(cat_or $ENV_DIR/V_REPO "https://github.com/vlang/v.git")
+v_branch=$(cat_or $ENV_DIR/V_BRANCH "master")
+
+echo "Cloning V..." | arrow
+
+rm -Rf $V_DIR
+git clone --depth 1 --branch $v_branch $v_repo $V_DIR
+cd $V_DIR
+echo "Building V..." | arrow
+make
+
+PKGLIST=$BUILD_DIR/vpm.txt
+if [ -f "$PKGLIST" ]; then
+    echo "Found vpm.txt, installing VPM packages" | arrow
+    while read p; do
+      echo "Installing $p" | indent | arrow
+      $V_DIR/v install $p
+    done < $PKGLIST
+else
+    echo "vpm.txt not found - do not install any VPM packages" | arrow
+fi
+
+REMOTELIST=$BUILD_DIR/remote.txt
+if [ -f "$REMOTELIST" ]; then
+    echo "Found remote.txt, cloning remote git repo to ~/.vmodules" | arrow
+    while read -ra arr; do
+      echo "Cloning ${arr[0]} into ~/${arr[1]}/${arr[2]}" | indent | arrow
+      git clone ${arr[0]} ~/${arr[1]}/${arr[2]}
+      echo "Symlink ~/${arr[1]} ~/.vmodules/"
+      ln -s ~/${arr[1]} ~/.vmodules/
+    done < $REMOTELIST
+else
+    echo "remote.txt not found - do not install any thirdparty module from a remote repo." | arrow
+fi
+
+cd $BUILD_DIR
+$V_DIR/v -prod main.v
+
+echo "using ${v_repo} @${v_branch}" | indent
