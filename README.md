@@ -1,5 +1,3 @@
-# Link to the application - https://vlang-benchmarks-visualization-xq84s.ondigitalocean.app/
-
 ![image](https://user-images.githubusercontent.com/36485221/147782664-8b8923ac-602e-43d2-9850-37e98d65cceb.png)
 
 ## What?
