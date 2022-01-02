@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Install dependencies
+    - name: Setup V environment
+      # You may pin to the exact commit or the version.
+      # uses: nocturlab/setup-vlang-action@5cb58a1a4ae31497272bea0547d2df257e208641
+      uses: nocturlab/setup-vlang-action@v1.2.0
+    - name: Run tests
       run: |
-        ls
+        v test .
