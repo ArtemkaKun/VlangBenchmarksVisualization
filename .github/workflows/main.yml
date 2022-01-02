@@ -24,5 +24,6 @@ jobs:
         sudo ./v symlink
     - name: Run tests
       run: |
+        cd ..
         cd VlangBenchmarksVisualization
         v test .
