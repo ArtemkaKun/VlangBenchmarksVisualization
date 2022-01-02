@@ -25,5 +25,7 @@ jobs:
     - name: Run tests
       run: |
         cd ..
+        ls
         cd VlangBenchmarksVisualization
+        ls
         v test .
