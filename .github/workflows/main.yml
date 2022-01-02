@@ -7,16 +7,20 @@ on:
     branches: [ main ]
     
 jobs:
-  run:
-    name: Run
+  ubuntu:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-    - name: Set up V version latest
-      uses: nocturlab/setup-vlang-action@v1.2.0
-      with:
-        v-version: master
-      id: v
-    - name: Build repository app
-      run: v .
-    - name: Run V tests
-      run: v test .
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install --quiet -y sudo build-essential libssl-dev libgc-dev unzip
+    - name: Download V
+      run: |
+        wget https://github.com/vlang/v/releases/latest/download/v_linux.zip
+        unzip v_linux.zip
+        cd v
+        sudo ./v symlink
+    - name: Test V
+      run: |
+        v test tests/
