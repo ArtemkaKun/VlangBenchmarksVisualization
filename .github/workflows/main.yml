@@ -23,4 +23,7 @@ jobs:
         sudo ./v symlink
     - name: Test V
       run: |
+        echo 'start ls'
+        ls
+        echo 'stop ls'
         v test tests/
