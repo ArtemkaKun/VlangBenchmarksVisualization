@@ -33,8 +33,8 @@ pub fn calculate_average_result(grouped_benchmarks_data map[string][]structures.
 	return benchmark_name_to_average_result_map
 }
 
-pub fn calculate_median_result(grouped_benchmarks_data map[string][]structures.VlangBenchmarkData) map[string]f32 {
-	mut benchmark_name_to_average_result_map := map[string]f32{}
+pub fn calculate_median_result(grouped_benchmarks_data map[string][]structures.VlangBenchmarkData) map[string]int {
+	mut benchmark_name_to_average_result_map := map[string]int{}
 
 	for benchmark_name, benchmark_data in grouped_benchmarks_data {
 		mut benchmark_results := []int{}
