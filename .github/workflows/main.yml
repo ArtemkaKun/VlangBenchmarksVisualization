@@ -13,19 +13,4 @@ jobs:
     steps:
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install --quiet -y sudo build-essential libssl-dev libgc-dev unzip
-    - name: Download V
-      run: |
-        cd ..
-        wget https://github.com/vlang/v/releases/latest/download/v_linux.zip 
-        unzip v_linux.zip
-        cd v
-        sudo ./v symlink
-    - name: Run tests
-      run: |
-        cd ..
         ls
-        cd VlangBenchmarksVisualization
-        ls
-        v test .
