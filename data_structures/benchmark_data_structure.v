@@ -11,3 +11,11 @@ pub:
 	numerical_result int
 	measure_unit     string
 }
+
+pub struct VlangBenchmarkPlotData {
+pub:
+	dates            []string
+	numerical_result []int
+	min_result       int
+	max_result       int
+}

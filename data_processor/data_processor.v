@@ -2,6 +2,7 @@ module data_processor
 
 import data_structures as structures
 import math.stats
+import time
 
 pub fn get_grouped_benchmarks_data(benchmarks []structures.VlangBenchmarkData) map[string][]structures.VlangBenchmarkData {
 	mut benchmark_name_to_benchmark_data_map := map[string][]structures.VlangBenchmarkData{}
@@ -58,4 +59,31 @@ pub fn format_average_result(grouped_benchmarks_data map[string]f32) map[string]
 	}
 
 	return formated_average_result_map
+}
+
+pub fn get_benchmarks_plot_data(grouped_benchmarks_data map[string][]structures.VlangBenchmarkData) map[string]structures.VlangBenchmarkPlotData {
+	mut benchmark_plot_data_map := map[string]structures.VlangBenchmarkPlotData{}
+
+	for benchmark_name, benchmark_data in grouped_benchmarks_data {
+		mut results_dates := []string{}
+		mut results_values := []int{}
+
+		for benchmark_record in benchmark_data {
+			results_dates << benchmark_record.date.format()
+			results_values << benchmark_record.numerical_result
+		}
+
+		mut sorted_results_values := []int{}
+		sorted_results_values << results_values
+		sorted_results_values.sort()
+
+		benchmark_plot_data_map[benchmark_name] = structures.VlangBenchmarkPlotData{
+			dates: results_dates.reverse()
+			numerical_result: results_values.reverse()
+			min_result: sorted_results_values[0]
+			max_result: sorted_results_values[sorted_results_values.len - 1]
+		}
+	}
+
+	return benchmark_plot_data_map
 }
