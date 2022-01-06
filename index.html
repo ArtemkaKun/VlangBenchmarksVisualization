@@ -8,8 +8,9 @@
     <base href="/" />
     @css 'css/bootstrap.min.css'
     @css 'css/app.css'
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css"> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -44,14 +45,71 @@
         </div>
 
         @for benchmark_name, benchmark_plot_data in benchmarks_plot_data
-            <canvas id="@benchmark_name" style="width:100%;max-height:700px"></canvas>
-            <script>
-                    var xValues = @benchmark_plot_data.dates;
-                    var yValues = @benchmark_plot_data.numerical_result;
-                
-                    new Chart("@benchmark_name", {type: "line", data: {labels: xValues, datasets: [{fill: false, lineTension: 0, backgroundColor: "rgba(0,0,255,1.0)", borderColor: "rgba(0,0,255,0.1)", data: yValues}]},
-                        options: {legend: {display: false}, scales: {yAxes: [{ticks: {min: @benchmark_plot_data.min_result, max: @benchmark_plot_data.max_result}}]}}});
-            </script>
+        <canvas id="@benchmark_name" style="width:100%;max-height:700px"></canvas>
+        <script>
+            var labels = @benchmark_plot_data.dates;
+            var values = @benchmark_plot_data.numerical_result;
+
+            new Chart(
+                "@benchmark_name", {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values
+                        }]
+                    },
+                    options: {
+                        animation: false,
+                        spanGaps: true,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                min: new Date('@benchmark_plot_data.min_date').valueOf(),
+                                max: new Date('@benchmark_plot_data.max_date').valueOf(),
+                                grid: {
+                                    display: false
+                                },
+                                time: {
+                                    unit: 'day',
+                                    stepSize: 3,
+                                    displayFormats: {
+                                        day: 'yyyy-MM-dd'
+                                    },
+                                },
+                            },
+                            y: {
+                                type: 'linear',
+                                min: @benchmark_plot_data.min_result,
+                                max: @benchmark_plot_data.max_result,
+                                ticks: {
+                                    callback: function(value, index, ticks) {
+                                        return value + ' @benchmark_plot_data.measure_unit';
+                                    },
+                                },
+                            },
+                        },
+                        elements: {
+                            point: {
+                                radius: 0
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                            title: {
+                                display: true,
+                                text: '@benchmark_name',
+                                font: {
+                                    size: 36
+                                },
+                            },
+                        },
+                    },
+                },
+            );
+        </script>
         @end
     </main>
 
