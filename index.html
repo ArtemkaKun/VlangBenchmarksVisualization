@@ -22,21 +22,13 @@
 
     @css 'css/bootstrap.min.css'
     @css 'css/app.css'
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
 </head>
 
 <body>
     <header>
         <img src="/v-logo.png" alt="Vlang main logo" />
         <h1>Vlang Benchmarks Visualizations</h1>
-        <h3>
-            Interactive plots, based on the data from the
-            <a href="https://fast.vlang.io/" target="_blank">
-                <em>Is V still fast?</em>
-            </a> page
-        </h3>
+        <h3>Interactive plots, based on the data from the <a href="https://fast.vlang.io/" target="_blank"><em>Is V still fast?</em></a> page</h3>
     </header>
 
     <main>
@@ -58,73 +50,16 @@
             </table>
         </div>
 
-        @for benchmark_name, benchmark_plot_data in benchmarks_plot_data
-        <canvas id="@benchmark_name" style="width:100%;max-height:700px"></canvas>
-        <script>
-            var labels = @benchmark_plot_data.dates;
-            var values = @benchmark_plot_data.numerical_result;
+        <div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+            @js 'scripts/benchmark_plot.js'
 
-            new Chart(
-                "@benchmark_name", {
-                    type: "line",
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            data: values
-                        }]
-                    },
-                    options: {
-                        animation: false,
-                        spanGaps: true,
-                        scales: {
-                            x: {
-                                type: 'time',
-                                min: new Date('@benchmark_plot_data.min_date').valueOf(),
-                                max: new Date('@benchmark_plot_data.max_date').valueOf(),
-                                grid: {
-                                    display: false
-                                },
-                                time: {
-                                    unit: 'day',
-                                    stepSize: 3,
-                                    displayFormats: {
-                                        day: 'yyyy-MM-dd'
-                                    },
-                                },
-                            },
-                            y: {
-                                type: 'linear',
-                                min: @benchmark_plot_data.min_result,
-                                max: @benchmark_plot_data.max_result,
-                                ticks: {
-                                    callback: function(value, index, ticks) {
-                                        return value + ' @benchmark_plot_data.measure_unit';
-                                    },
-                                },
-                            },
-                        },
-                        elements: {
-                            point: {
-                                radius: 0
-                            },
-                        },
-                        plugins: {
-                            legend: {
-                                display: false,
-                            },
-                            title: {
-                                display: true,
-                                text: '@benchmark_name',
-                                font: {
-                                    size: 36
-                                },
-                            },
-                        },
-                    },
-                },
-            );
-        </script>
-        @end
+            @for benchmark_name, benchmark_plot_data in benchmarks_plot_data
+            <canvas id="@benchmark_name" style="width:100%;max-height:700px"></canvas>
+            <script>create_plot("@benchmark_name", @benchmark_plot_data.dates, @benchmark_plot_data.numerical_result, '@benchmark_plot_data.min_date', '@benchmark_plot_data.max_date', @benchmark_plot_data.min_result, @benchmark_plot_data.max_result, ' @benchmark_plot_data.measure_unit');</script>
+            @end
+        </div>
     </main>
 
     <footer>
