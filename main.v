@@ -10,6 +10,8 @@ fn main() {
 	mut app := &App{}
 	app.handle_static('assets', true)
 	app.serve_static('/v-logo.png', 'assets/images/v-logo.png')
+	app.serve_static('/vbv.png', 'assets/images/vbv.png')
+	app.serve_static('/favicon.png', 'assets/images/favicon.png')
 	vweb.run(app, 8080)
 }
 
