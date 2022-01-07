@@ -22,3 +22,10 @@ pub:
 	max_date         string
 	measure_unit     string
 }
+
+pub struct VlangBenchmarkStatisticData {
+pub:
+	benchmark_name string
+	average_result string
+	median_result  string
+}
