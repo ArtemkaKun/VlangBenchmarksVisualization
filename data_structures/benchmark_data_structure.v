@@ -16,10 +16,6 @@ pub struct VlangBenchmarkPlotData {
 pub:
 	dates            []string
 	numerical_result []int
-	min_result       int
-	max_result       int
-	min_date         string
-	max_date         string
 	measure_unit     string
 }
 

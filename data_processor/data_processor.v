@@ -7,7 +7,7 @@ pub fn get_grouped_benchmarks_data(benchmarks []structures.VlangBenchmarkData) m
 	mut benchmark_name_to_benchmark_data_map := map[string][]structures.VlangBenchmarkData{}
 
 	for benchmark_data in benchmarks {
-		if benchmark_name_to_benchmark_data_map.keys().contains(benchmark_data.benchmark_name) == false {
+		if (benchmark_data.benchmark_name in benchmark_name_to_benchmark_data_map) == false {
 			benchmark_name_to_benchmark_data_map[benchmark_data.benchmark_name] = []structures.VlangBenchmarkData{}
 		}
 
@@ -47,21 +47,9 @@ pub fn get_benchmarks_plot_data(grouped_benchmarks_data map[string][]structures.
 			results_values << benchmark_record.numerical_result
 		}
 
-		mut sorted_results_values := []int{}
-		sorted_results_values << results_values
-		sorted_results_values.sort()
-
-		mut sorted_dates := []string{}
-		sorted_dates << results_dates
-		sorted_dates.sort()
-
 		benchmark_plot_data_map[benchmark_name] = structures.VlangBenchmarkPlotData{
 			dates: results_dates.reverse()
 			numerical_result: results_values.reverse()
-			min_result: sorted_results_values[0]
-			max_result: sorted_results_values[sorted_results_values.len - 1]
-			min_date: sorted_dates[0]
-			max_date: sorted_dates[sorted_dates.len - 1]
 			measure_unit: benchmark_data[0].measure_unit
 		}
 	}

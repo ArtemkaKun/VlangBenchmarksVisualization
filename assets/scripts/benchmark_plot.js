@@ -1,4 +1,10 @@
-function create_plot(benchmark_name, dates, values, min_date, max_date, min_value, max_value, measure_unit) {
+function create_plots() {
+    original_plot_data.forEach((plot_data, benchmark_name) => {
+        create_plot(benchmark_name, plot_data.dates, plot_data.values, plot_data.measure_unit);
+    });
+}
+
+function create_plot(benchmark_name, dates, values, measure_unit) {
     new Chart(
         benchmark_name,
         {
@@ -15,8 +21,6 @@ function create_plot(benchmark_name, dates, values, min_date, max_date, min_valu
                 scales: {
                     x: {
                         type: 'time',
-                        min: new Date(min_date).valueOf(),
-                        max: new Date(max_date).valueOf(),
                         grid: {
                             display: false
                         },
@@ -30,12 +34,8 @@ function create_plot(benchmark_name, dates, values, min_date, max_date, min_valu
                     },
                     y: {
                         type: 'linear',
-                        min: min_value,
-                        max: max_value,
                         ticks: {
-                            callback: function (value, index, ticks) {
-                                return value + measure_unit;
-                            }
+                            callback: (value) => value + ' ' + measure_unit
                         }
                     }
                 },

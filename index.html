@@ -53,12 +53,15 @@
         <div>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-            @js 'scripts/benchmark_plot.js'
+            @js 'scripts/benchmark_plot_data.js'
 
             @for benchmark_name, benchmark_plot_data in benchmarks_plot_data
             <canvas id="@benchmark_name" style="width:100%;max-height:700px"></canvas>
-            <script>create_plot("@benchmark_name", @benchmark_plot_data.dates, @benchmark_plot_data.numerical_result, '@benchmark_plot_data.min_date', '@benchmark_plot_data.max_date', @benchmark_plot_data.min_result, @benchmark_plot_data.max_result, ' @benchmark_plot_data.measure_unit');</script>
+            <script>add_plot_data("@benchmark_name", @benchmark_plot_data.dates, @benchmark_plot_data.numerical_result, '@benchmark_plot_data.measure_unit');</script>
             @end
+
+            @js 'scripts/benchmark_plot.js'
+            <script>create_plots();</script>
         </div>
     </main>
 
