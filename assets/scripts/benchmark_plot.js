@@ -1,6 +1,16 @@
-function create_plots() {
+function create_plots(plot_start_day, plot_end_day) {
     original_plot_data.forEach((plot_data, benchmark_name) => {
-        create_plot(benchmark_name, plot_data.dates, plot_data.values, plot_data.measure_unit);
+        let selected_dates = Array();
+        let selected_values = Array();
+
+        for (let data_index = 0; data_index < plot_data.dates.length; data_index++) {
+            if (new Date(plot_data.dates[data_index]) >= plot_start_day || new Date(plot_data.dates[data_index]) <= plot_start_day) {
+                selected_dates.push(plot_data.dates[data_index]);
+                selected_values.push(plot_data.dates[data_index]);
+            }
+        }
+
+        create_plot(benchmark_name, selected_dates, selected_values, plot_data.measure_unit);
     });
 }
 

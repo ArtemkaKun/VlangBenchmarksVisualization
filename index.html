@@ -61,7 +61,7 @@
             @end
 
             @js 'scripts/benchmark_plot.js'
-            <script>create_plots();</script>
+            <script>console.log(new Date() - new Date(0, 2, 0), new Date()); create_plots(new Date() - new Date(0, 2, 0), new Date());</script>
         </div>
     </main>
 
