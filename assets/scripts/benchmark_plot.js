@@ -4,9 +4,9 @@ function create_plots(plot_start_day, plot_end_day) {
         let selected_values = Array();
 
         for (let data_index = 0; data_index < plot_data.dates.length; data_index++) {
-            if (new Date(plot_data.dates[data_index]) >= plot_start_day || new Date(plot_data.dates[data_index]) <= plot_start_day) {
+            if ((new Date(plot_data.dates[data_index]) >= plot_start_day) && (new Date(plot_data.dates[data_index]) <= plot_end_day)) {
                 selected_dates.push(plot_data.dates[data_index]);
-                selected_values.push(plot_data.dates[data_index]);
+                selected_values.push(plot_data.values[data_index]);
             }
         }
 

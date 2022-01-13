@@ -61,7 +61,12 @@
             @end
 
             @js 'scripts/benchmark_plot.js'
-            <script>console.log(new Date() - new Date(0, 2, 0), new Date()); create_plots(new Date() - new Date(0, 2, 0), new Date());</script>
+            <script>
+                let date_today = new Date();
+                let date_two_months_ago = new Date();
+                date_two_months_ago = date_two_months_ago.setMonth(date_two_months_ago.getMonth() - 2);
+                create_plots(new Date(date_two_months_ago), date_today);
+            </script>
         </div>
     </main>
 
